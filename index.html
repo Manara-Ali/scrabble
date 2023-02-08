@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Scrabble</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="player-1-container">
+        <div id="command-center" style="border: 1px solid blue">
+          <h3>Command Center</h3>
+          <button class="btn btn-lock">Lock Word</button>
+          <button class="btn btn-challenge">Challenge Play</button>
+        </div>
+        <div class="rack" style="border: 1px solid blue">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div id="player-1" style="border: 1px solid blue">Player 1</div>
+      </div>
+      <div id="board">
+        <div class="tile-box triple-word-score">Triple Word Score</div>
+        <div class="tile-box">{1, 0}</div>
+        <div class="tile-box">{2, 0}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{4, 0}</div>
+        <div class="tile-box">{5, 0}</div>
+        <div class="tile-box">{6, 0}</div>
+        <div class="tile-box triple-word-score">Triple Word Score</div>
+        <div class="tile-box">{8, 0}</div>
+        <div class="tile-box">{9, 0}</div>
+        <div class="tile-box">{10, 0}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{12, 0}</div>
+        <div class="tile-box">{13, 0}</div>
+        <div class="tile-box triple-word-score">Triple Word Score</div>
+        <div class="tile-box">{0, 1}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{2, 1}</div>
+        <div class="tile-box">{3, 1}</div>
+        <div class="tile-box">{4, 1}</div>
+        <div class="tile-box">{5, 1}</div>
+        <div class="tile-box">{6, 1}</div>
+        <div class="tile-box">{7, 1}</div>
+        <div class="tile-box">{8, 1}</div>
+        <div class="tile-box">{9, 1}</div>
+        <div class="tile-box">{10, 1}</div>
+        <div class="tile-box">{11, 1}</div>
+        <div class="tile-box">{12, 1}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{14, 1}</div>
+        <div class="tile-box">{0, 2}</div>
+        <div class="tile-box">{1, 2}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{3, 2}</div>
+        <div class="tile-box">{4, 2}</div>
+        <div class="tile-box">{5, 2}</div>
+        <div class="tile-box">{6, 2}</div>
+        <div class="tile-box">{7, 2}</div>
+        <div class="tile-box">{8, 2}</div>
+        <div class="tile-box">{9, 2}</div>
+        <div class="tile-box">{10, 2}</div>
+        <div class="tile-box">{11, 2}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{13, 2}</div>
+        <div class="tile-box">{14, 2}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{1, 3}</div>
+        <div class="tile-box">{2, 3}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{4, 3}</div>
+        <div class="tile-box">{5, 3}</div>
+        <div class="tile-box">{6, 3}</div>
+        <div class="tile-box">{7, 3}</div>
+        <div class="tile-box">{8, 3}</div>
+        <div class="tile-box">{9, 3}</div>
+        <div class="tile-box">{10, 3}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{12, 3}</div>
+        <div class="tile-box">{13, 3}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{0, 4}</div>
+        <div class="tile-box">{1, 4}</div>
+        <div class="tile-box">{2, 4}</div>
+        <div class="tile-box">{3, 4}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{5, 4}</div>
+        <div class="tile-box">{6, 4}</div>
+        <div class="tile-box">{7, 4}</div>
+        <div class="tile-box">{8, 4}</div>
+        <div class="tile-box">{9, 4}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{11, 4}</div>
+        <div class="tile-box">{12, 4}</div>
+        <div class="tile-box">{13, 4}</div>
+        <div class="tile-box">{14, 4}</div>
+        <div class="tile-box">{0, 5}</div>
+        <div class="tile-box triple-letter-score">Triple Letter Word</div>
+        <div class="tile-box">{2, 5}</div>
+        <div class="tile-box">{3, 5}</div>
+        <div class="tile-box">{4, 5}</div>
+        <div class="tile-box triple-letter-score">Triple Letter Word</div>
+        <div class="tile-box">{6, 5}</div>
+        <div class="tile-box">{7, 5}</div>
+        <div class="tile-box">{8, 5}</div>
+        <div class="tile-box triple-letter-score">Triple Letter Word</div>
+        <div class="tile-box">{10, 5}</div>
+        <div class="tile-box">{11, 5}</div>
+        <div class="tile-box">{12, 5}</div>
+        <div class="tile-box triple-letter-score">Triple Letter Word</div>
+        <div class="tile-box">{14, 5}</div>
+        <div class="tile-box">{0, 6}</div>
+        <div class="tile-box">{1, 6}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{3, 6}</div>
+        <div class="tile-box">{4, 6}</div>
+        <div class="tile-box">{5, 6}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{7, 6}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{9, 6}</div>
+        <div class="tile-box">{10, 6}</div>
+        <div class="tile-box">{11, 6}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{13, 6}</div>
+        <div class="tile-box">{14, 6}</div>
+        <div class="tile-box triple-word-score">Triple Word Score</div>
+        <div class="tile-box">{1, 7}</div>
+        <div class="tile-box">{2, 7}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{4, 7}</div>
+        <div class="tile-box">{5, 7}</div>
+        <div class="tile-box">{6, 7}</div>
+        <div class="tile-box double-word-score">
+          <i class="fa-solid fa-star fa-3x"></i>
+        </div>
+        <div class="tile-box">{8, 7}</div>
+        <div class="tile-box">{9, 7}</div>
+        <div class="tile-box">{10, 7}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{12, 7}</div>
+        <div class="tile-box">{13, 7}</div>
+        <div class="tile-box triple-word-score">Triple Word Score</div>
+        <div class="tile-box">{0, 8}</div>
+        <div class="tile-box">{1, 8}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{3, 8}</div>
+        <div class="tile-box">{4, 8}</div>
+        <div class="tile-box">{5, 8}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{7, 8}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{9, 8}</div>
+        <div class="tile-box">{10, 8}</div>
+        <div class="tile-box">{11, 8}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{13, 8}</div>
+        <div class="tile-box">{14, 8}</div>
+        <div class="tile-box">{0, 9}</div>
+        <div class="tile-box triple-letter-score">Triple Letter Word</div>
+        <div class="tile-box">{2, 9}</div>
+        <div class="tile-box">{3, 9}</div>
+        <div class="tile-box">{4, 9}</div>
+        <div class="tile-box triple-letter-score">Triple Letter Word</div>
+        <div class="tile-box">{6, 9}</div>
+        <div class="tile-box">{7, 9}</div>
+        <div class="tile-box">{8, 9}</div>
+        <div class="tile-box triple-letter-score">Triple Letter Word</div>
+        <div class="tile-box">{10, 9}</div>
+        <div class="tile-box">{11, 9}</div>
+        <div class="tile-box">{12, 9}</div>
+        <div class="tile-box triple-letter-score">Triple Letter Word</div>
+        <div class="tile-box">{14, 9}</div>
+        <div class="tile-box">{0, 10}</div>
+        <div class="tile-box">{1, 10}</div>
+        <div class="tile-box">{2, 10}</div>
+        <div class="tile-box">{3, 10}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{5, 10}</div>
+        <div class="tile-box">{6, 10}</div>
+        <div class="tile-box">{7, 10}</div>
+        <div class="tile-box">{8, 10}</div>
+        <div class="tile-box">{9, 10}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{11, 10}</div>
+        <div class="tile-box">{12, 10}</div>
+        <div class="tile-box">{13, 10}</div>
+        <div class="tile-box">{14, 10}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{1, 11}</div>
+        <div class="tile-box">{2, 11}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{4, 11}</div>
+        <div class="tile-box">{5, 11}</div>
+        <div class="tile-box">{6, 11}</div>
+        <div class="tile-box">{7, 11}</div>
+        <div class="tile-box">{8, 11}</div>
+        <div class="tile-box">{9, 11}</div>
+        <div class="tile-box">{10, 11}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{12, 11}</div>
+        <div class="tile-box">{13, 11}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{0, 12}</div>
+        <div class="tile-box">{1, 12}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{3, 12}</div>
+        <div class="tile-box">{4, 12}</div>
+        <div class="tile-box">{5, 12}</div>
+        <div class="tile-box">{6, 12}</div>
+        <div class="tile-box">{7, 12}</div>
+        <div class="tile-box">{8, 12}</div>
+        <div class="tile-box">{9, 12}</div>
+        <div class="tile-box">{10, 12}</div>
+        <div class="tile-box">{11, 12}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{13, 12}</div>
+        <div class="tile-box">{14, 12}</div>
+        <div class="tile-box">{0, 13}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{2, 13}</div>
+        <div class="tile-box">{3, 13}</div>
+        <div class="tile-box">{4, 13}</div>
+        <div class="tile-box">{5, 13}</div>
+        <div class="tile-box">{6, 13}</div>
+        <div class="tile-box">{7, 13}</div>
+        <div class="tile-box">{8, 13}</div>
+        <div class="tile-box">{9, 13}</div>
+        <div class="tile-box">{10, 13}</div>
+        <div class="tile-box">{11, 13}</div>
+        <div class="tile-box">{12, 13}</div>
+        <div class="tile-box double-word-score">Double Word Score</div>
+        <div class="tile-box">{14, 13}</div>
+        <div class="tile-box triple-word-score">Triple Word Score</div>
+        <div class="tile-box">{1, 14}</div>
+        <div class="tile-box">{2, 14}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{4, 14}</div>
+        <div class="tile-box">{5, 14}</div>
+        <div class="tile-box">{6, 14}</div>
+        <div class="tile-box triple-word-score">Triple Word Score</div>
+        <div class="tile-box">{8, 14}</div>
+        <div class="tile-box">{9, 14}</div>
+        <div class="tile-box">{10, 14}</div>
+        <div class="tile-box double-letter-score">Double Letter Score</div>
+        <div class="tile-box">{12, 14}</div>
+        <div class="tile-box">{13, 14}</div>
+        <div class="tile-box triple-word-score">Triple Word Score</div>
+      </div>
+      <div id="player-2-container">
+        <div class="rack" style="border: 1px solid blue">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div id="player-2" style="border: 1px solid red">Player 2</div>
+        <img
+          style="border: 1px solid red"
+          src="img/scrabble_pouch_full-removebg-preview.png"
+          alt="scrabble_pouch_full"
+          width="300"
+          height="300"
+          style="display: block"
+        />
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+  </body>
+</html>
