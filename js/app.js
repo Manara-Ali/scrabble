@@ -13,6 +13,14 @@
 //   dropZone.prepend(card);
 // });
 
+///////////////////////////////// SELECT ELEMENTS
+const body = document.querySelector("body");
+
+// Blur the body after document content has loaded
+document.addEventListener("DOMContentLoaded", function () {
+  body.classList.add("blur");
+});
+
 // Create all the scrabble letters
 class Tile {
   constructor(letter, value, quantity, img) {
