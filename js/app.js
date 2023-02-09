@@ -26,6 +26,8 @@ const player2 = document.querySelector("#player-2");
 const requiredField = document.querySelector(".required");
 const player1Rack = document.querySelector("#player-1-rack");
 const player2Rack = document.querySelector("#player-2-rack");
+const player1MsgDiv = document.querySelector("#player-1-tile-selection");
+// const player2MsgDiv = document.querySelector("#player-2-tile-selection");
 const pouch = document.querySelector("#pouch");
 
 ////////////// ANIMATION
@@ -56,6 +58,11 @@ playersSubmitBtn.addEventListener("click", function () {
     player1.textContent = player1NameInput.value;
     player2.textContent = player2NameInput.value;
 
+    // At this point I know the text content has changed
+    player1.dispatchEvent(
+      new CustomEvent("textcontentchange", { detail: true, bubbles: true })
+    );
+
     // Clear form fields
     player1NameInput.value = "";
     player2NameInput.value = "";
@@ -72,6 +79,15 @@ playersSubmitBtn.addEventListener("click", function () {
         new CustomEvent("error", { detail: true, bubbles: true })
       );
     }
+  }
+});
+
+document.addEventListener("textcontentchange", function (e) {
+  if (e.detail) {
+    player1MsgDiv.textContent = `${player1.textContent}, click on scrabble pouch and select first letter!`;
+
+    // Animate player selection tile dive
+    gsap.to("#player-1-tile-selection", { left: "30%", delay: 0.5 });
   }
 });
 
