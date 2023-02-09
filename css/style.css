@@ -40,6 +40,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 98vh;
+  position: relative;
 }
 
 .rack {
@@ -72,6 +73,7 @@ body {
 
 img {
   align-self: center;
+  cursor: pointer;
 }
 
 #board {
@@ -213,4 +215,10 @@ img {
   border: 2px solid #000 !important;
   transition-property: "background-color", "border";
   transition-duration: 0.5 0.2;
+}
+
+.player-turn {
+  position: absolute;
+  top: 45%;
+  left: 30%;
 }
