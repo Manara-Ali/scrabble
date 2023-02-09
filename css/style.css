@@ -11,6 +11,21 @@ body {
   text-align: center;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
+  overflow: hidden;
+}
+
+.blur {
+  filter: blur(3px);
+}
+
+body::before {
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .container {
