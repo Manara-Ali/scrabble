@@ -92,7 +92,12 @@ document.addEventListener("textcontentchange", function (e) {
 });
 
 pouch.addEventListener("click", function () {
-  console.log("POUCH CLICKED");
+  // Animate player selection tile dive
+  gsap.to("#player-1-tile-selection", {
+    left: "-1000%",
+    duration: 2,
+    ease: "power1.inOut",
+  });
 });
 
 ///////////////////  Create a class to produce all the scrabble letters
