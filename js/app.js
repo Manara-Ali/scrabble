@@ -24,11 +24,14 @@ const playersSubmitBtn = document.querySelector(".btn-players-submit");
 const player1 = document.querySelector("#player-1");
 const player2 = document.querySelector("#player-2");
 const requiredField = document.querySelector(".required");
+const player1Rack = document.querySelector("#player-1-rack");
+const player2Rack = document.querySelector("#player-2-rack");
+const pouch = document.querySelector("#pouch");
 
 ////////////// ANIMATION
 
 // Animate modal window
-gsap.from(".modal", { scale: 3, duration: 1 });
+gsap.from(".modal", { scale: 3, duration: 0.5 });
 
 /////////////// EVENT LISTENERS
 document.addEventListener("DOMContentLoaded", function () {
@@ -70,6 +73,10 @@ playersSubmitBtn.addEventListener("click", function () {
       );
     }
   }
+});
+
+pouch.addEventListener("click", function () {
+  console.log("POUCH CLICKED");
 });
 
 ///////////////////  Create a class to produce all the scrabble letters
@@ -124,3 +131,5 @@ const tiles = letters.map((element, index) => {
 
 // Add blank tiles
 tiles.push(new Tile("", 0, 2, "Blank.PNG"));
+
+// Let players pick on letter each to determine turns
