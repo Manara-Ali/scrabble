@@ -50,7 +50,10 @@
           <button class="btn btn-lock">Lock Word</button>
           <button class="btn btn-challenge">Challenge Play</button>
         </div>
-        <div class="rack" style="border: 1px solid blue">
+        <div class="player-turn" style="border: 1px solid red">
+          Player Letter Selection
+        </div>
+        <div class="rack" id="player-1-rack" style="border: 1px solid blue">
           <div></div>
           <div></div>
           <div></div>
@@ -291,7 +294,7 @@
         <div class="tile-box triple-word-score">Triple Word Score</div>
       </div>
       <div id="player-2-container">
-        <div class="rack" style="border: 1px solid blue">
+        <div class="rack" id="player-2-rack" style="border: 1px solid blue">
           <div></div>
           <div></div>
           <div></div>
@@ -302,6 +305,7 @@
         </div>
         <div id="player-2" style="border: 1px solid red">Player 2</div>
         <img
+          id="pouch"
           style="border: 1px solid red"
           src="img/scrabble_pouch_full-removebg-preview.png"
           alt="scrabble_pouch_full"
