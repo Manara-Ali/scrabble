@@ -210,15 +210,13 @@ img {
 }
 
 .error {
-  /* background-color: #e06666; */
-  background-color: #df9090;
-  border: 2px solid #000 !important;
+  border: 2px solid red !important;
   transition-property: "background-color", "border";
   transition-duration: 0.5 0.2;
 }
 
-.player-1-tile-selection {
+#player-1-tile-selection {
   position: absolute;
   top: 45%;
-  left: 30%;
+  left: -100%;
 }
