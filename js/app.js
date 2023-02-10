@@ -127,8 +127,8 @@ const selectTile = function () {
 const switchPlayer = () => {
   activePlayer = activePlayer === 1 ? 2 : 1;
   console.log(activePlayer);
-  player1MarkerDiv.classList.toggle("hidden-marker");
-  player2MarkerDiv.classList.toggle("hidden-marker");
+  player1MarkerDiv.classList.toggle("hide-marker");
+  player2MarkerDiv.classList.toggle("hide-marker");
   player1.classList.toggle("active-player");
   player2.classList.toggle("active-player");
 };
