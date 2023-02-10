@@ -193,7 +193,7 @@ document.addEventListener("textcontentchange", function (e) {
 
     // Animate player selection tile dive
     gsap.to("#player-1-tile-selection", {
-      left: "30%",
+      left: "20%",
       delay: 0.5,
       duration: 1,
       ease: "Elastic.easeOut",
