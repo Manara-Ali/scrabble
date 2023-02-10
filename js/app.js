@@ -30,8 +30,16 @@ const player1MsgDiv = document.querySelector("#player-1-tile-selection");
 // const player2MsgDiv = document.querySelector("#player-2-tile-selection");
 const pouch = document.querySelector("#pouch");
 
-////////////// ANIMATION
+////////////////////////// VARAIBLES
+const player1Rack = [];
+const player2Rack = [];
 
+////////////////////////// FUNCTIONS
+const random = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+////////////// ANIMATION
 // Animate modal window
 gsap.from(".modal", { scale: 3, duration: 0.5 });
 
@@ -98,6 +106,11 @@ pouch.addEventListener("click", function () {
     duration: 2,
     ease: "power1.inOut",
   });
+
+  // Select a letter
+  const tileIndex = random(0, tiles.length - 1);
+
+  console.log(tiles[tileIndex]);
 });
 
 ///////////////////  Create a class to produce all the scrabble letters
@@ -154,3 +167,4 @@ const tiles = letters.map((element, index) => {
 tiles.push(new Tile("", 0, 2, "Blank.PNG"));
 
 // Let players pick on letter each to determine turns
+// console.log(tiles);
