@@ -14,3 +14,16 @@ No Error
 ---
 Game Homepage
 ![homepage](/img/homepage.png)
+---
+## Concept
+---
+## Overview
+---
+## How to run this application
+---
+## Flowchart
+---
+## Wireframes
+---
+# The Building of the App
+---
