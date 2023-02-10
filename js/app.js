@@ -171,6 +171,9 @@ playersSubmitBtn.addEventListener("click", function () {
 
     // Remove overlay
     overlay.classList.add("hide");
+
+    // Show visibility on player 1
+    player1MarkerDiv.classList.remove("hide-marker");
   } else {
     if (!player1NameInput.value) {
       player1NameInput.dispatchEvent(
