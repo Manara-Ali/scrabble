@@ -114,12 +114,12 @@ const selectTile = function () {
     tile.quantity--;
 
     if (tile.quantity === 0) {
-      tiles.filter((element) => {
+      tiles = tiles.filter((element) => {
         return element.letter !== tile.letter;
       });
     }
 
-    console.log("selected tile", tile);
+    console.log(tiles);
     return tile;
   }
 };
@@ -255,27 +255,4 @@ pouch.addEventListener("click", function () {
     // Switch current player
     switchPlayer();
   }
-  // player1Rack.push(selectTile());
-
-  // // Create an image tag
-  // const imgTag = document.createElement("img");
-
-  // // Add id and class
-  // imgTag.classList.add("rack-img");
-
-  // imgTag.src = player1Rack[player1Rack.length - 1].img;
-
-  // // Select the parent div
-  // const parentDiv = document.querySelector(
-  //   `#rack-1-div-${player1Rack.length - 1}`
-  // );
-
-  // // Add tile to player rack
-  // parentDiv?.append(imgTag);
-
-  // // Switch current player
-  // switchPlayer();
-
-  // // rack1Position1.src = player1Rack[player1Rack.length - 1].img;
-  // console.log(player1Rack);
 });
