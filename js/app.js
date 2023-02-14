@@ -351,9 +351,14 @@ pouch.addEventListener("click", function () {
       roundSelection = false;
 
       if (!roundSelection) {
-        document.dispatchEvent(
-          new CustomEvent("selectedplayer", { detail: true })
-        );
+        // document.dispatchEvent(
+        //   new CustomEvent("selectedplayer", { detail: true })
+        // );
+        window.setTimeout(() => {
+          document.dispatchEvent(
+            new CustomEvent("selectedplayer", { detail: true })
+          );
+        }, 500);
       }
     }
   }
