@@ -61,6 +61,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  position: relative;
 }
 
 #command-center {
@@ -219,6 +220,15 @@ img {
   position: absolute;
   top: 45%;
   left: -150%;
+  width: 80%;
+  border: 1px solid red;
+  word-wrap: break-word;
+}
+
+#player-2-tile-selection {
+  position: absolute;
+  top: 45%;
+  right: -150%;
   width: 80%;
   border: 1px solid red;
   word-wrap: break-word;

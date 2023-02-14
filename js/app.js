@@ -30,6 +30,7 @@ const requiredField = document.querySelector(".required");
 const player1RackDiv = document.querySelector("#player-1-rack");
 const player2RackDiv = document.querySelector("#player-2-rack");
 const player1MsgDiv = document.querySelector("#player-1-tile-selection");
+const player2MsgDiv = document.querySelector("#player-2-tile-selection");
 const pouch = document.querySelector("#pouch");
 const player1MarkerDiv = document.querySelector("#player-1-marker-div");
 const player2MarkerDiv = document.querySelector("#player-2-marker-div");
@@ -42,40 +43,43 @@ const player1Rack = [];
 const player2Rack = [];
 let activePlayer = 1;
 const letters = [
-  { A: 1, quantity: 9 },
-  { B: 3, quantity: 2 },
-  { C: 3, quantity: 2 },
-  { D: 2, quantity: 4 },
-  { E: 1, quantity: 12 },
-  { F: 4, quantity: 2 },
-  { G: 2, quantity: 3 },
-  { H: 4, quantity: 2 },
-  { I: 1, quantity: 9 },
-  { J: 8, quantity: 1 },
-  { K: 5, quantity: 1 },
-  { L: 1, quantity: 4 },
-  { M: 3, quantity: 2 },
-  { N: 1, quantity: 6 },
-  { O: 1, quantity: 8 },
-  { P: 3, quantity: 2 },
-  { Q: 10, quantity: 1 },
-  { R: 1, quantity: 6 },
-  { S: 1, quantity: 4 },
-  { T: 1, quantity: 6 },
-  { U: 1, quantity: 4 },
-  { V: 4, quantity: 2 },
-  { W: 4, quantity: 2 },
-  { X: 8, quantity: 1 },
-  { Y: 4, quantity: 2 },
-  { Z: 10, quantity: 1 },
+  { A: 1, quantity: 9, position: 1 },
+  { B: 3, quantity: 2, position: 2 },
+  { C: 3, quantity: 2, position: 3 },
+  { D: 2, quantity: 4, position: 4 },
+  { E: 1, quantity: 12, position: 5 },
+  { F: 4, quantity: 2, position: 6 },
+  { G: 2, quantity: 3, position: 7 },
+  { H: 4, quantity: 2, position: 8 },
+  { I: 1, quantity: 9, position: 9 },
+  { J: 8, quantity: 1, position: 10 },
+  { K: 5, quantity: 1, position: 11 },
+  { L: 1, quantity: 4, position: 12 },
+  { M: 3, quantity: 2, position: 13 },
+  { N: 1, quantity: 6, position: 14 },
+  { O: 1, quantity: 8, position: 15 },
+  { P: 3, quantity: 2, position: 16 },
+  { Q: 10, quantity: 1, position: 17 },
+  { R: 1, quantity: 6, position: 18 },
+  { S: 1, quantity: 4, position: 18 },
+  { T: 1, quantity: 6, position: 20 },
+  { U: 1, quantity: 4, position: 21 },
+  { V: 4, quantity: 2, position: 22 },
+  { W: 4, quantity: 2, position: 23 },
+  { X: 8, quantity: 1, position: 24 },
+  { Y: 4, quantity: 2, position: 25 },
+  { Z: 10, quantity: 1, position: 26 },
 ];
+let roundSelection = true;
+let selectedPlayer;
 
 // Create a class to produce all the scrabble letters
 class Tile {
-  constructor(letter, value, quantity, img) {
+  constructor(letter, value, quantity, position, img) {
     this.letter = letter;
     this.value = value;
     this.quantity = quantity;
+    this.position = position;
     this.img = `/img/${img}`;
   }
 }
@@ -86,12 +90,15 @@ let tiles = letters.map((element, index) => {
     Object.keys(element)[0],
     Object.values(element)[0],
     Object.values(element)[1],
+    Object.values(element)[2],
     `${Object.keys(element)[0]}.PNG`
   );
 });
 
 // Add blank tiles
-tiles.push(new Tile("", 0, 2, "Blank.PNG"));
+tiles.push(new Tile("", 0, 2, 0, "Blank.PNG"));
+
+console.log(tiles);
 
 ////////////////////////// FUNCTIONS
 const random = function (min, max) {
@@ -119,7 +126,6 @@ const selectTile = function () {
       });
     }
 
-    console.log(tiles);
     return tile;
   }
 };
@@ -201,58 +207,154 @@ document.addEventListener("textcontentchange", function (e) {
   }
 });
 
+document.addEventListener("player2selectionturn", function (e) {
+  if (e.detail) {
+    player2MsgDiv.textContent = `${player2.textContent}, click on pouch and select first letter!`;
+
+    // Animate player selection tile dive
+    gsap.to("#player-2-tile-selection", {
+      right: "20%",
+      delay: 0.5,
+      duration: 1,
+      ease: "Elastic.easeOut",
+    });
+  }
+});
+
+document.addEventListener("selectedplayer", function (e) {
+  console.log("SELECTION COMPLETED!");
+  console.log([...player1Rack, ...player2Rack]);
+  // Compare both letters and find who should go first
+  selectedPlayer = player1Rack.concat(player2Rack).sort((a, b) => {
+    console.log(a, b);
+    return a.position - b.position <= 0 ? -1 : 1;
+  })[0].owner;
+
+  // Assuming first player won the turn draw
+  if (player1Rack[0].owner === selectedPlayer) {
+    player1MsgDiv.textContent = `Congratulations ${selectedPlayer}! You will start the game.`;
+
+    // Animate player selection tile dive
+    gsap.to("#player-1-tile-selection", {
+      left: "20%",
+      delay: 0.5,
+      duration: 1,
+      ease: "Elastic.easeOut",
+    });
+
+    // Remove animation after 1.5 seconds
+    window.setTimeout(() => {
+      console.log("HERE");
+      gsap.to("#player-1-tile-selection", {
+        left: "-1000%",
+        duration: 1,
+        // ease: "Back.easeInOut",
+      });
+    }, 3000);
+  }
+
+  if (player2Rack[0].owner === selectedPlayer) {
+    // Assuming player 2 wont the turn
+    player2MsgDiv.textContent = `Congratulations ${selectedPlayer}! You will start the game.`;
+
+    // Animate player selection tile dive
+    gsap.to("#player-2-tile-selection", {
+      right: "20%",
+      delay: 0.5,
+      duration: 1,
+      ease: "Elastic.easeOut",
+    });
+
+    // Remove animation after 1.5 seconds
+    window.setTimeout(() => {
+      console.log("THERE");
+      gsap.to("#player-2-tile-selection", {
+        right: "-1000%",
+        duration: 1,
+        // ease: "Back.easeInOut",
+      });
+    }, 3000);
+  }
+});
+
 pouch.addEventListener("click", function () {
-  // Animate player selection tile dive
-  gsap.to("#player-1-tile-selection", {
-    left: "-1000%",
-    duration: 2,
-    // ease: "Back.easeInOut",
-  });
+  // // Animate player selection tile dive
+  // gsap.to("#player-1-tile-selection", {
+  //   left: "-1000%",
+  //   duration: 2,
+  //   // ease: "Back.easeInOut",
+  // });
 
-  // Select a letter
-  if (activePlayer === 1) {
-    player1Rack.push(selectTile());
+  if (roundSelection) {
+    if (activePlayer === 1) {
+      // Animate player selection tile dive
+      gsap.to("#player-1-tile-selection", {
+        left: "-1000%",
+        duration: 2,
+        // ease: "Back.easeInOut",
+      });
 
-    // Create an image tag
-    const imgTag = document.createElement("img");
+      player1Rack.push({ owner: player1.textContent, ...selectTile() });
 
-    // Add id and class
-    imgTag.classList.add("rack-img");
+      // Create an image tag
+      const imgTag = document.createElement("img");
 
-    imgTag.src = player1Rack[player1Rack.length - 1].img;
+      // Add id and class
+      imgTag.classList.add("rack-img");
 
-    // Select the parent div
-    const parentDiv = document.querySelector(
-      `#rack-1-div-${player1Rack.length - 1}`
-    );
+      imgTag.src = player1Rack[player1Rack.length - 1].img;
 
-    // Add tile to player rack
-    parentDiv?.append(imgTag);
+      // Select the parent div
+      const parentDiv = document.querySelector(
+        `#rack-1-div-${player1Rack.length - 1}`
+      );
 
-    // Switch current player
-    switchPlayer();
-  } else {
-    player2Rack.push(selectTile());
+      // Add tile to player rack
+      parentDiv?.append(imgTag);
 
-    console.log("p2rack", player2Rack);
+      // Dispatch from pouch
+      pouch.dispatchEvent(
+        new CustomEvent("player2selectionturn", { detail: true, bubbles: true })
+      );
 
-    // Create an image tag
-    const imgTag = document.createElement("img");
+      // Switch current player
+      switchPlayer();
+    } else {
+      // Animate player selection tile dive
+      gsap.to("#player-2-tile-selection", {
+        right: "-1000%",
+        duration: 2,
+        // ease: "Back.easeInOut",
+      });
+      player2Rack.push({ owner: player2.textContent, ...selectTile() });
 
-    // Add id and class
-    imgTag.classList.add("rack-img");
+      console.log("p2rack", player2Rack);
 
-    imgTag.src = player2Rack[player2Rack.length - 1].img;
+      // Create an image tag
+      const imgTag = document.createElement("img");
 
-    // Select the parent div
-    const parentDiv = document.querySelector(
-      `#rack-2-div-${player2Rack.length - 1}`
-    );
+      // Add id and class
+      imgTag.classList.add("rack-img");
 
-    // Add tile to player rack
-    parentDiv?.append(imgTag);
+      imgTag.src = player2Rack[player2Rack.length - 1].img;
 
-    // Switch current player
-    switchPlayer();
+      // Select the parent div
+      const parentDiv = document.querySelector(
+        `#rack-2-div-${player2Rack.length - 1}`
+      );
+
+      // Add tile to player rack
+      parentDiv?.append(imgTag);
+
+      // Switch current player
+      // switchPlayer();
+      roundSelection = false;
+
+      if (!roundSelection) {
+        document.dispatchEvent(
+          new CustomEvent("selectedplayer", { detail: true })
+        );
+      }
+    }
   }
 });
