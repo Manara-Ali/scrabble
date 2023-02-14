@@ -112,20 +112,20 @@ const selectTile = function () {
     // Randomly select a tile
     const tileIndex = tiles.length && random(0, tiles.length - 1);
 
+    // Retrieve the selected tile
     tile = tiles[tileIndex];
 
-    // Check for its letter count
-    // if (!tile.quantity) {
-    //   continue;
-    // } else {
+    // Decrease the tile quantity by 1
     tile.quantity--;
 
+    // Assuming the tile quantity is now 0 after selection, remove from pouch
     if (tile.quantity === 0) {
       tiles = tiles.filter((element) => {
         return element.letter !== tile.letter;
       });
     }
 
+    // Return selected tile
     return tile;
   }
 };
