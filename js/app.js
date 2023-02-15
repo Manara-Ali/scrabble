@@ -1,21 +1,3 @@
-// const card = document.querySelector("#card");
-// const dropZone = document.querySelector("#drop-zone");
-
-// card.addEventListener("dragstart", function (e) {
-//   console.log(e);
-// });
-
-// dropZone.addEventListener("dragover", function (e) {
-//   e.preventDefault();
-// });
-
-// dropZone.addEventListener("drop", function () {
-//   dropZone.prepend(card);
-// });
-
-// const rule = CSSRulePlugin.getRule("h3:after");
-// gsap.from(rule, { cssRule: { scale: 10 }, duration: 1.5, delay: 5 });
-
 ///////////////////////////////// SELECT ELEMENTS
 const body = document.querySelector("body");
 const overlay = document.querySelector(".overlay");
@@ -34,9 +16,6 @@ const player2MsgDiv = document.querySelector("#player-2-tile-selection");
 const pouch = document.querySelector("#pouch");
 const player1MarkerDiv = document.querySelector("#player-1-marker-div");
 const player2MarkerDiv = document.querySelector("#player-2-marker-div");
-// const activePlayerMarker = document.querySelector(".active-player");
-// const player2MsgDiv = document.querySelector("#player-2-tile-selection");
-// const rack1Position1 = document.querySelector("#rack-1-position-1");
 
 ////////////////////////// VARAIBLES
 const player1Rack = [];
@@ -98,8 +77,6 @@ let tiles = letters.map((element, index) => {
 // Add blank tiles
 tiles.push(new Tile("", 0, 2, 0, "Blank.PNG"));
 
-console.log(tiles);
-
 ////////////////////////// FUNCTIONS
 const random = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -130,6 +107,7 @@ const selectTile = function () {
   }
 };
 
+// Create a function to allow switch between players
 const switchPlayer = () => {
   activePlayer = activePlayer === 1 ? 2 : 1;
   console.log(activePlayer);
@@ -139,34 +117,58 @@ const switchPlayer = () => {
   player2.classList.toggle("active-player");
 };
 
+// Create a function to append tile image to the rack div
+function createAndAppendTileImage(playerRack, rackDivNumber) {
+  // Create an image tag
+  const imgTag = document.createElement("img");
+
+  // Add a class and source attribute to the
+  imgTag.classList.add("rack-img");
+
+  imgTag.src = playerRack[playerRack.length - 1].img;
+
+  // Select the parent div
+  const parentDiv = document.querySelector(
+    `#rack-${rackDivNumber}-div-${playerRack.length - 1}`
+  );
+
+  // Add tile to player rack
+  parentDiv?.append(imgTag);
+}
+
 ////////////// ANIMATION
 // Animate modal window
 gsap.from(".modal", { scale: 3, duration: 0.5 });
 
 /////////////// EVENT LISTENERS
+
+// This event listener will add an overlay whenever the DOM loads
 document.addEventListener("DOMContentLoaded", function () {
   overlay.classList.remove("hide");
 });
 
+// This event listener is responsible for watching for error in player's names
 document.addEventListener("error", function (e) {
   if (e.detail) {
     requiredField.classList.remove("hide");
-    e.target.classList.add("error");
+    e.target.classList.add("error"); // Add border around error input box
   }
 
+  // Remove error markers after 2 seconds
   window.setTimeout(() => {
     requiredField.classList.add("hide");
     e.target.classList.remove("error");
   }, 2000);
 });
 
+// This event listener watches for player's name submission on the button
 playersSubmitBtn.addEventListener("click", function () {
   if (player1NameInput.value && player2NameInput.value) {
     // Change the value of the text content for player 1 and 2
     player1.textContent = player1NameInput.value;
     player2.textContent = player2NameInput.value;
 
-    // At this point I know the text content has changed
+    // I know the players text content has changed so I can let the document know
     player1.dispatchEvent(
       new CustomEvent("textcontentchange", { detail: true, bubbles: true })
     );
@@ -181,6 +183,7 @@ playersSubmitBtn.addEventListener("click", function () {
     // Show visibility on player 1
     player1MarkerDiv.classList.remove("hide-marker");
   } else {
+    // If any of the input is missing I need to let the document know
     if (!player1NameInput.value) {
       player1NameInput.dispatchEvent(
         new CustomEvent("error", { detail: true, bubbles: true })
@@ -193,6 +196,7 @@ playersSubmitBtn.addEventListener("click", function () {
   }
 });
 
+// After players have entered their names provide on screen feedback
 document.addEventListener("textcontentchange", function (e) {
   if (e.detail) {
     player1MsgDiv.textContent = `${player1.textContent}, click on pouch and select first letter!`;
@@ -207,6 +211,7 @@ document.addEventListener("textcontentchange", function (e) {
   }
 });
 
+// Document receive dispatched event that let's the player2 know to select letter
 document.addEventListener("player2selectionturn", function (e) {
   if (e.detail) {
     player2MsgDiv.textContent = `${player2.textContent}, click on pouch and select first letter!`;
@@ -221,8 +226,8 @@ document.addEventListener("player2selectionturn", function (e) {
   }
 });
 
+// This document provides feed back on which player will start the game
 document.addEventListener("selectedplayer", function (e) {
-  console.log("SELECTION COMPLETED!");
   console.log([...player1Rack, ...player2Rack]);
   // Compare both letters and find who should go first
   selectedPlayer = player1Rack.concat(player2Rack).sort((a, b) => {
@@ -277,83 +282,49 @@ document.addEventListener("selectedplayer", function (e) {
   }
 });
 
+// Add an eventListener to the scrabble bag
 pouch.addEventListener("click", function () {
-  // // Animate player selection tile dive
-  // gsap.to("#player-1-tile-selection", {
-  //   left: "-1000%",
-  //   duration: 2,
-  //   // ease: "Back.easeInOut",
-  // });
-
+  // Assuming we are still in the process of selecting players
   if (roundSelection) {
+    // Assuming the active player is player1
     if (activePlayer === 1) {
       // Animate player selection tile dive
       gsap.to("#player-1-tile-selection", {
         left: "-1000%",
         duration: 2,
-        // ease: "Back.easeInOut",
       });
 
+      // Add player1 selected tile to his rack
       player1Rack.push({ owner: player1.textContent, ...selectTile() });
 
-      // Create an image tag
-      const imgTag = document.createElement("img");
+      // Create and append a tile image into the current player's rack
+      createAndAppendTileImage(player1Rack, 1);
 
-      // Add id and class
-      imgTag.classList.add("rack-img");
-
-      imgTag.src = player1Rack[player1Rack.length - 1].img;
-
-      // Select the parent div
-      const parentDiv = document.querySelector(
-        `#rack-1-div-${player1Rack.length - 1}`
-      );
-
-      // Add tile to player rack
-      parentDiv?.append(imgTag);
-
-      // Dispatch from pouch
+      // Dispatch event from pouch. Let player-2 it is their turn to choose a letter
       pouch.dispatchEvent(
         new CustomEvent("player2selectionturn", { detail: true, bubbles: true })
       );
 
-      // Switch current player
+      // Switch current player from player1 to player2
       switchPlayer();
     } else {
       // Animate player selection tile dive
       gsap.to("#player-2-tile-selection", {
         right: "-1000%",
         duration: 2,
-        // ease: "Back.easeInOut",
       });
+
+      // Add player2 selected letter to the player's rack
       player2Rack.push({ owner: player2.textContent, ...selectTile() });
 
-      console.log("p2rack", player2Rack);
+      // Create and append a tile image into the current player's rack
+      createAndAppendTileImage(player2Rack, 2);
 
-      // Create an image tag
-      const imgTag = document.createElement("img");
-
-      // Add id and class
-      imgTag.classList.add("rack-img");
-
-      imgTag.src = player2Rack[player2Rack.length - 1].img;
-
-      // Select the parent div
-      const parentDiv = document.querySelector(
-        `#rack-2-div-${player2Rack.length - 1}`
-      );
-
-      // Add tile to player rack
-      parentDiv?.append(imgTag);
-
-      // Switch current player
-      // switchPlayer();
+      // Stop the round selection
       roundSelection = false;
 
+      // Assuming the selection round is complete, provide feedback to users
       if (!roundSelection) {
-        // document.dispatchEvent(
-        //   new CustomEvent("selectedplayer", { detail: true })
-        // );
         window.setTimeout(() => {
           document.dispatchEvent(
             new CustomEvent("selectedplayer", { detail: true })
