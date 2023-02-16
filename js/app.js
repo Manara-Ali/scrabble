@@ -151,10 +151,10 @@ function createAndAppendTileImage(
 
 // Create a function to append tile image to the rack div
 function createAndAppendSelectedTileImage(
-  playerRack = undefined,
-  rackDivNumber,
+  // rackDivNumber,
   position,
-  selectedTileFn
+  selectedTileFn,
+  playerRack
 ) {
   // Find the player rack based on the active player
   playerRack = activePlayer === 1 ? player1Rack : player2Rack;
@@ -404,7 +404,7 @@ document.addEventListener("startgame", function (e) {
 
     for (let i = 1; i < 7; i++) {
       // const selectedTile = selectTile();
-      createAndAppendSelectedTileImage(undefined, activePlayer, i, selectTile);
+      createAndAppendSelectedTileImage(i, selectTile);
     }
 
     window.setTimeout(() => {
@@ -415,12 +415,7 @@ document.addEventListener("startgame", function (e) {
       }
       for (let i = 1; i < 7; i++) {
         // const selectedTile = selectTile();
-        createAndAppendSelectedTileImage(
-          undefined,
-          activePlayer === 1 ? 2 : 1,
-          i,
-          selectTile
-        );
+        createAndAppendSelectedTileImage(i, selectTile);
       }
     }, 2000);
   }
