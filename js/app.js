@@ -50,6 +50,7 @@ const letters = [
   { Z: 10, quantity: 1, position: 26 },
 ];
 let roundSelection = true;
+let gameOn = false;
 let selectedPlayer;
 
 // Create a class to produce all the scrabble letters
@@ -118,18 +119,60 @@ const switchPlayer = () => {
 };
 
 // Create a function to append tile image to the rack div
-function createAndAppendTileImage(playerRack, rackDivNumber) {
+function createAndAppendTileImage(
+  playerRack = undefined,
+  rackDivNumber,
+  position
+) {
+  // Find the player rack based on the active player
+  activePlayer === 1 ? (playerRack = player1Rack) : (playerRack = player2Rack);
+
   // Create an image tag
   const imgTag = document.createElement("img");
 
   // Add a class and source attribute to the
   imgTag.classList.add("rack-img");
 
-  imgTag.src = playerRack[playerRack.length - 1].img;
+  if (playerRack.length === 1) {
+    imgTag.src = playerRack[position]?.img;
+  } else {
+    console.log(selectedTile);
+  }
 
   // Select the parent div
   const parentDiv = document.querySelector(
-    `#rack-${rackDivNumber}-div-${playerRack.length - 1}`
+    // `#rack-${rackDivNumber}-div-${playerRack.length - 1}`
+    `#rack-${rackDivNumber}-div-${position}`
+  );
+
+  // Add tile to player rack
+  parentDiv?.append(imgTag);
+}
+
+// Create a function to append tile image to the rack div
+function createAndAppendSelectedTileImage(
+  playerRack = undefined,
+  rackDivNumber,
+  position,
+  selectedTileFn
+) {
+  // Find the player rack based on the active player
+  playerRack = activePlayer === 1 ? player1Rack : player2Rack;
+
+  // Create an image tag
+  const imgTag = document.createElement("img");
+
+  // Add a class and source attribute to the
+  imgTag.classList.add("rack-img");
+
+  playerRack.push(selectedTileFn());
+
+  imgTag.src = playerRack[position]?.img;
+
+  // Select the parent div
+  const parentDiv = document.querySelector(
+    // `#rack-${rackDivNumber}-div-${playerRack.length - 1}`
+    `#rack-${activePlayer}-div-${position}`
   );
 
   // Add tile to player rack
@@ -165,8 +208,8 @@ document.addEventListener("error", function (e) {
 playersSubmitBtn.addEventListener("click", function () {
   if (player1NameInput.value && player2NameInput.value) {
     // Change the value of the text content for player 1 and 2
-    player1.textContent = player1NameInput.value;
-    player2.textContent = player2NameInput.value;
+    player1.textContent = player1NameInput.value.toUpperCase();
+    player2.textContent = player2NameInput.value.toUpperCase();
 
     // I know the players text content has changed so I can let the document know
     player1.dispatchEvent(
@@ -280,6 +323,11 @@ document.addEventListener("selectedplayer", function (e) {
       });
     }, 3000);
   }
+
+  // Wait for the feedback message code to execute and after 250ms execute game on
+  window.setTimeout(() => {
+    document.dispatchEvent(new CustomEvent("startgame", { detail: true }));
+  }, 3250);
 });
 
 // Add an eventListener to the scrabble bag
@@ -298,7 +346,7 @@ pouch.addEventListener("click", function () {
       player1Rack.push({ owner: player1.textContent, ...selectTile() });
 
       // Create and append a tile image into the current player's rack
-      createAndAppendTileImage(player1Rack, 1);
+      createAndAppendTileImage(player1Rack, 1, 0);
 
       // Dispatch event from pouch. Let player-2 it is their turn to choose a letter
       pouch.dispatchEvent(
@@ -318,7 +366,7 @@ pouch.addEventListener("click", function () {
       player2Rack.push({ owner: player2.textContent, ...selectTile() });
 
       // Create and append a tile image into the current player's rack
-      createAndAppendTileImage(player2Rack, 2);
+      createAndAppendTileImage(player2Rack, 2, 0);
 
       // Stop the round selection
       roundSelection = false;
@@ -332,5 +380,48 @@ pouch.addEventListener("click", function () {
         }, 500);
       }
     }
+  }
+});
+
+// Assuming the game is on
+document.addEventListener("startgame", function (e) {
+  if (e.detail) {
+    // Assuming the selected player is not the active player
+    const activePlayerDiv = document.querySelector(
+      "div[id^='player-'].active-player"
+    );
+
+    if (activePlayerDiv.textContent !== selectedPlayer) {
+      switchPlayer();
+    }
+
+    // Assuming the new active player has changed
+    if (activePlayer !== 1) {
+      activePlayer = parseInt(
+        document.querySelector(".active-player").id.split("-")[1]
+      );
+    }
+
+    for (let i = 1; i < 7; i++) {
+      // const selectedTile = selectTile();
+      createAndAppendSelectedTileImage(undefined, activePlayer, i, selectTile);
+    }
+
+    window.setTimeout(() => {
+      if (activePlayer === 1) {
+        activePlayer = 2;
+      } else {
+        activePlayer = 1;
+      }
+      for (let i = 1; i < 7; i++) {
+        // const selectedTile = selectTile();
+        createAndAppendSelectedTileImage(
+          undefined,
+          activePlayer === 1 ? 2 : 1,
+          i,
+          selectTile
+        );
+      }
+    }, 2000);
   }
 });
